@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,6 +9,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <title>Jacob Yu</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
 
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -42,7 +45,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link" href="#">Home</a>
+      <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
       <a class="nav-item nav-link" href="{% static 'Oracle_Associate_Application_Engineer.pdf' %}">Resume</a>
       <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
     </div>
@@ -51,33 +54,19 @@
 </header>
 
 <main role="main">
-
-  <section class="jumbotron text-center">
-    <div class="container">
-      <h1 class="jumbotron-heading">Jacob Yu's Page</h1>
-      <p class="lead text-muted">My name is Jacob Yu and this is site to place various projects and what not I have worked on.</p>
-      <p>
-        <a href="mailto:jacobyu1@gmail.com" class="btn btn-primary my-2">Contact Me</a>
-      </p>
-    </div>
-  </section>
-
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-
-      	{% for job in jobs.all %}
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="{{ job.image.url }}"/>
-            <div class="card-body">
-              <p class="card-text">{{ job.summary }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-	  </div>
-	  {% endfor %}
+	<div class="container">
+	  <h1 class="text-center pt-2">Welcome to the Blog</h1>
+	  <br/>
+	  <h2 class="text-center">Latest Post</h2>
+	  <hr/>
+	{% for post in blog.all %}
+		<a href="{% url 'detail' post.id %}"><h3>{{ post.title }}</h3></a>
+		<p>{{ post.pub_date_short }}</p>
+		<img class="image-fluid" src="{{ post.image.url}}" height="150" width="150"/>
+		<br/>
+		<p>{{ post.summary }}</p>
+	{% endfor %}
+  </div>
 </main>
 
 <footer class="text-muted">
